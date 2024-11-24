@@ -1,3 +1,10 @@
 /* 
     General Styles
 */
+body{
+    background-color: bg-dark-subtle;
+}
+
+a {
+    text-decoration: none;
+}
