@@ -1,13 +1,13 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { Home } from "./views/home";
 import { AddContact } from "./views/AddContact";
 import { ContactCard } from "./views/ContactCard";
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import { Login } from "./views/login";
 
 //create your first component
 const Layout = () => {
@@ -18,11 +18,12 @@ const Layout = () => {
 	return (
 		<div>
 			<BrowserRouter basename={basename}>
-				<Navbar />
 				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/AddContact" element={<AddContact />} />
-					<Route path="/ContactCard/:id" element={<ContactCard />} />
+					<Route path="/" element={<Navigate to="/login" replace />} />
+					<Route path="/home" element={<Home />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/add-contact" element={<AddContact />} />
+					<Route path="/contact-card/:id" element={<ContactCard />} />
 					<Route path="*" element={<h1>Not found!</h1>} />
 				</Routes>
 				<Footer />
