@@ -9,7 +9,7 @@ export const Home = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	const {agendaName} = useParams();
+	const { agendaName } = useParams();
 	const baseUrl = `https://playground.4geeks.com/contact/agendas/${agendaName}`;
 
 	// useEffect para cargar contactos al montar
@@ -47,7 +47,7 @@ export const Home = () => {
 		if (!window.confirm("¿Estás seguro de que quieres eliminar este contacto?")) {
 			return;
 		}
-		
+
 		const deleteUrl = `https://playground.4geeks.com/contact/agendas/${agendaName}/contacts/${contactId}`;
 
 		try {
@@ -71,11 +71,14 @@ export const Home = () => {
 		}
 	};
 
+
+	// funcion editar contacto
+
 	return (
 		<>
 			<Navbar />
 			<div className="container mt-4">
-				<h1 className="text-center mb-4">Contactos de la Agenda</h1>
+				<h1 className="text-center mb-4">Contactos de <strong>{agendaName}</strong></h1>
 
 				{isLoading && <p className="text-center">Cargando contactos...</p>}
 				{error && <p className="text-center text-danger">{error}</p>}
@@ -95,9 +98,9 @@ export const Home = () => {
 
 									<div className="mx-3">
 										<strong>{contact.name}</strong>
-										<p className="mb-0">{contact.address}</p>
-										<p className="mb-0">{contact.phone}</p>
-										<p className="mb-0">{contact.email}</p>
+										<p className="mb-0"><i className="bi bi-geo-alt-fill"></i> - {contact.address}</p>
+										<p className="mb-0"><i className="bi bi-telephone-fill"></i> - {contact.phone}</p>
+										<p className="mb-0"><i className="bi bi-envelope-fill"></i> - {contact.email}</p>
 									</div>
 								</div>
 
@@ -111,6 +114,29 @@ export const Home = () => {
 										</span>
 										<span className="circle"></span>
 									</button>
+
+									
+									<button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+										Launch demo modal
+									</button>
+									<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div className="modal-dialog">
+											<div className="modal-content">
+												<div className="modal-header">
+													<h1 className="modal-title fs-5">Modal title</h1>
+													<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div className="modal-body">
+													asdasdasdasd
+												</div>
+												<div className="modal-footer">
+													<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+													<button type="button" className="btn btn-primary">Save changes</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
 									<button
 										className="animated-button mx-2"
 										style={{ padding: "4px 12px" }}
