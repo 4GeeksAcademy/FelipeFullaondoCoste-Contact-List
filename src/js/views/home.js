@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Navbar } from "../component/navbar";
 import "../../styles/home.css";
 import "../../styles/cardImages.css"
+import { useParams } from "react-router";
 
 export const Home = () => {
 	const [contacts, setContacts] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	const agendaName = "asd";
+	const {agendaName} = useParams();
 	const baseUrl = `https://playground.4geeks.com/contact/agendas/${agendaName}`;
 
 	// useEffect para cargar contactos al montar
@@ -41,6 +42,35 @@ export const Home = () => {
 
 
 
+	//funcion para eliminar contacto
+	const handleDeleteContact = async (contactId) => {
+		if (!window.confirm("¿Estás seguro de que quieres eliminar este contacto?")) {
+			return;
+		}
+		
+		const deleteUrl = `https://playground.4geeks.com/contact/agendas/${agendaName}/contacts/${contactId}`;
+
+		try {
+			const response = await fetch(deleteUrl, {
+				method: "DELETE",
+				headers: {
+					"accept": "application/json",
+				},
+			});
+
+			if (response.ok) {
+				setContacts(contacts.filter((contact) => contact.id !== contactId));
+				alert("Contacto eliminado exitosamente.");
+			} else {
+				console.error(`Error ${response.status}: ${response.statusText}`);
+				alert("No se pudo eliminar el contacto.");
+			}
+		} catch (error) {
+			console.error("Error al eliminar el contacto:", error.message);
+			alert("Hubo un error al eliminar el contacto.");
+		}
+	};
+
 	return (
 		<>
 			<Navbar />
@@ -71,6 +101,27 @@ export const Home = () => {
 									</div>
 								</div>
 
+								<div className="d-flex justify-content-between align-items-center mx-3 my-1">
+									<button
+										className="animated-button mx-2"
+										style={{ padding: "4px 12px" }}
+									>
+										<span className="text2">
+											<i className="bi bi-pencil-fill" style={{ fontSize: "1.5rem" }}></i>
+										</span>
+										<span className="circle"></span>
+									</button>
+									<button
+										className="animated-button mx-2"
+										style={{ padding: "4px 12px" }}
+										onClick={() => handleDeleteContact(contact.id)}
+									>
+										<span className="text2">
+											<i className="bi bi-trash-fill" style={{ fontSize: "1.5rem" }}></i>
+										</span>
+										<span className="circle"></span>
+									</button>
+								</div>
 
 							</li>
 						))}

@@ -1,9 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../../styles/index.css";
 import "../../styles/buttons.css";
 
 export const Navbar = () => {
+    const { agendaName } = useParams();
+
+
 	return (
 		<>
 			<nav className="navbar navbar-expand-lg bg-dark-subtle mb-4 p-4 border-bottom border-black">
@@ -25,7 +28,7 @@ export const Navbar = () => {
 							</svg>
 						</button>
 					</Link>
-					<Link to="/home">
+					<Link to={`/home/${agendaName}`}>
 						<button className="animated-button mx-2">
 							<svg viewBox="0 0 24 24" className="arr-2" xmlns="http://www.w3.org/2000/svg">
 								<path
@@ -41,7 +44,7 @@ export const Navbar = () => {
 							</svg>
 						</button>
 					</Link>
-					<Link to="/add-contact">
+					<Link to={`/add-contact/${agendaName}`}>
 						<button className="animated-button mx-2">
 							<svg viewBox="0 0 24 24" className="arr-2" xmlns="http://www.w3.org/2000/svg">
 								<path

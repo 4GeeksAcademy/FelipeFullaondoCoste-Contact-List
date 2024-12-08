@@ -27,7 +27,7 @@ export const Login = () => {
                 const data = await createResponse.json();
                 console.log("Agenda creada:", data);
                 alert(`Agenda '${loginInputValue}' creada exitosamente.`);
-                navigate("/home")
+                navigate(`/home/${loginInputValue.trim()}`);
             } else if (createResponse.status === 400) {
                 alert("La agenda ya existe. Por favor, intenta con otro nombre.");
             } else {
@@ -60,7 +60,7 @@ export const Login = () => {
             if (checkResponse.ok) {
                 console.log("Agenda encontrada. Redirigiendo a /home.");
                 alert(`Bienvenido a la agenda '${loginInputValue}'`);
-                navigate("/home");
+                navigate(`/home/${loginInputValue.trim()}`);
             } else if (checkResponse.status === 404) {
                 alert("La agenda no existe. Por favor, crea una nueva o verifica el nombre.");
             } else {
@@ -75,9 +75,9 @@ export const Login = () => {
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100 shadow rounded">
-            <div className="card p-4" style={{ width: "400px" }}>
+            <div className="card p-4 bg-dark-subtle text-white" style={{ width: "500px" }}>
                 <div className="card-body text-center">
-                    <h5 className="card-title mb-2">Ingrese su usuario</h5>
+                    <h5 className="card-title mb-2"><strong>Ingrese su usuario</strong></h5>
                     <div className="my-3">
                         <input
                             type="text"
@@ -87,12 +87,16 @@ export const Login = () => {
                             onChange={(e) => setLoginInputValue(e.target.value)}
                         />
                     </div>
-                    <button className="btn btn-primary m-2" onClick={handleCreateAgenda}>
-                        Crear Agenda
-                    </button>
-                    <button className="btn btn-success m-2" onClick={handleLogin}>
-                        Ingresar
-                    </button>
+                    <div className="d-flex justify-content-evenly align-items-center">
+                        <button className="animated-button" style={{ padding: "5px 26px" }}>
+                            <span className="text2" onClick={handleCreateAgenda}>Crear Agenda</span>
+                            <span className="circle"></span>
+                        </button>
+                        <button className="animated-button" style={{ padding: "5px 26px" }}>
+                            <span className="text2" onClick={handleLogin}>Ingresar</span>
+                            <span className="circle"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -20,9 +20,9 @@ const Layout = () => {
 			<BrowserRouter basename={basename}>
 				<Routes>
 					<Route path="/" element={<Navigate to="/login" replace />} />
-					<Route path="/home" element={<Home />} />
+					<Route path="/home/:agendaName" element={<Home />} />
 					<Route path="/login" element={<Login />} />
-					<Route path="/add-contact" element={<AddContact />} />
+					<Route path="/add-contact/:agendaName" element={<AddContact />} />
 					{/* <Route path="/contact-card/:id" element={<ContactCard />} /> */}
 					<Route path="*" element={<h1>Not found!</h1>} />
 				</Routes>
