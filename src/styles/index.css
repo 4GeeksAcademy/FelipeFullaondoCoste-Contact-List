@@ -1,10 +1,18 @@
 /* 
-    General Styles
+    Paleta
+        #222831 negro
+        #393E46 gris
+        #00ADB5 cyan
+        #EEEEEE blanco
 */
-body{
-    background-color: #ced4da;
+body {
+    background-color: #EEEEEE;
 }
 
 a {
     text-decoration: none;
+}
+
+.bg-dark-subtle {
+    background-color: #393E46 !important;
 }

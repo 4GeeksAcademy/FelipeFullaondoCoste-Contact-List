@@ -12,7 +12,7 @@ export const AddContact = () => {
 
 		<>
 			<Navbar />
-			<div className="container bg-white rounded p-3">
+			<div className="container rounded mt-5 p-3" style={{ backgroundColor: "#1F509A" }}>
 				<div className="mb-3">
 					<label className="form-label">Nombre</label>
 					<input type="text" className="form-control" />
@@ -30,8 +30,12 @@ export const AddContact = () => {
 					<input type="text" className="form-control" />
 				</div>
 
-				<Link to="/">
-					<button className="btn btn-primary">Back home</button>
+
+				<Link to="/home">
+					<button class="animated-button" style={{padding: "1px 26px"}}>
+						<span class="text2">Volver al listado</span>
+						<span class="circle"></span>
+					</button>
 				</Link>
 			</div>
 		</>

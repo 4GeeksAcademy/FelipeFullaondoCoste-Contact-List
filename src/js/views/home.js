@@ -1,35 +1,82 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../component/navbar";
-
-
-const API_BASE_URL = 'https://playground.4geeks.com/contact/agendas/'
+import "../../styles/home.css";
+import "../../styles/cardImages.css"
 
 export const Home = () => {
-	
+	const [contacts, setContacts] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState(null);
 
-	const getUsaerAgenda = async () => {
-		try {
-			const response = await fetch(`${API_BASE_URL}/Felipe`)
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	const agendaName = "asd";
+	const baseUrl = `https://playground.4geeks.com/contact/agendas/${agendaName}`;
+
+	// useEffect para cargar contactos al montar
+	useEffect(() => {
+		const fetchContacts = async () => {
+			try {
+				const response = await fetch(baseUrl, {
+					method: "GET",
+					headers: {
+						"accept": "application/json"
+					}
+				});
+
+				if (response.ok) {
+					const data = await response.json();
+					setContacts(data.contacts || []); // se asignan los contactos obtenidos
+				} else {
+					throw new Error(`Error ${response.status}: No se pudieron obtener los contactos.`);
+				}
+			} catch (error) {
+				console.error("Error al obtener contactos:", error.message);
+				setError("No se pudo cargar la lista de contactos.");
+			} finally {
+				setIsLoading(false); // carga finalizada
+			}
+		};
+
+		fetchContacts();
+	}, []);
+
 
 
 	return (
 		<>
 			<Navbar />
-			<div className="text-center mt-5">
-				<h1>Hello Rigo!</h1>
-				<p>
-					<img src={rigoImage} />
-				</p>
-				<a href="#" className="btn btn-success">
-					Necesito empezar este proyecto ya!
-				</a>
+			<div className="container mt-4">
+				<h1 className="text-center mb-4">Contactos de la Agenda</h1>
+
+				{isLoading && <p className="text-center">Cargando contactos...</p>}
+				{error && <p className="text-center text-danger">{error}</p>}
+
+				{!isLoading && !error && contacts.length === 0 && (
+					<p className="text-center">No hay contactos en esta agenda.</p>
+				)}
+
+				{!isLoading && !error && contacts.length > 0 && (
+					<ul className="list-group">
+						{contacts.map((contact, index) => (
+							<li key={index} className="list-group-item d-flex justify-content-between align-items-center text-white mb-1" style={{ backgroundColor: "#393E46" }}>
+								<div className="d-flex justify-content-between align-items-center mx-3 my-1">
+									<div className="rounded-container mx-3">
+										<img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" />
+									</div>
+
+									<div className="mx-3">
+										<strong>{contact.name}</strong>
+										<p className="mb-0">{contact.address}</p>
+										<p className="mb-0">{contact.phone}</p>
+										<p className="mb-0">{contact.email}</p>
+									</div>
+								</div>
+
+
+							</li>
+						))}
+					</ul>
+				)}
 			</div>
 		</>
 	);
-}
+};
