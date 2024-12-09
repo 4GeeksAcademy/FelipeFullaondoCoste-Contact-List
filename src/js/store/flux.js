@@ -156,9 +156,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     alert("Hubo un problema al intentar crear el contacto.");
                 }
             },
-
-            // EDIT
-            
         },
     };
 };

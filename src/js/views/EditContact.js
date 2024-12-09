@@ -73,7 +73,7 @@ export const EditContact = () => {
 
             if (response.ok) {
                 alert("Contacto actualizado exitosamente.");
-                navigate(`/home/${agendaName}`); 
+                navigate(`/home/${agendaName}`);
             } else {
                 throw new Error("No se pudo actualizar el contacto.");
             }

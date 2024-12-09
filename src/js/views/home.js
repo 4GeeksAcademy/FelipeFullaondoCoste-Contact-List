@@ -65,6 +65,16 @@ export const Home = () => {
                                 </div>
 
                                 <div className="d-flex justify-content-between align-items-center mx-3 my-1">
+                                    <Link to={`/home/${agendaName}/detail-contact/${contact.id}`}>
+                                        <button
+                                            className="animated-button mx-2"
+                                            style={{ padding: "4px 12px" }}
+                                        >
+                                            <span className="text2">Ver más</span>
+                                            <span className="circle"></span>
+                                        </button>
+                                    </Link>
+
                                     <Link to={`/home/${agendaName}/edit-contact/${contact.id}`}>
                                         <button
                                             className="animated-button mx-2"
